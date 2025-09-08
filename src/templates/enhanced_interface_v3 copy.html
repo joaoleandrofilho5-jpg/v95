@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARQV30 Enhanced v3.0 - Interface Aprimorada</title>
+    
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --info-color: #06b6d4;
+            
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --border-color: #475569;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+        
+        .tabs-container {
+            margin-bottom: 2rem;
+        }
+        
+        .tabs-nav {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .tab-button {
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .tab-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+        
+        .tab-button.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .tab-content {
+            display: none;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+        
+        .form-control::placeholder {
+            color: var(--text-secondary);
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, var(--success-color), #059669);
+            color: white;
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning-color), #d97706);
+            color: white;
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, var(--error-color), #dc2626);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        
+        .progress-container {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .status-container {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .status-item:last-child {
+            border-bottom: none;
+        }
+        
+        .status-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .status-icon.pending {
+            background: var(--warning-color);
+        }
+        
+        .status-icon.running {
+            background: var(--info-color);
+            animation: pulse 2s infinite;
+        }
+        
+        .status-icon.completed {
+            background: var(--success-color);
+        }
+        
+        .status-icon.error {
+            background: var(--error-color);
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .results-container {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .control-buttons {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .api-config-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .api-service-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+        }
+        
+        .api-service-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .api-status {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-left: auto;
+        }
+        
+        .api-status.active {
+            background: var(--success-color);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+        
+        .api-status.inactive {
+            background: var(--error-color);
+        }
+        
+        .api-keys-list {
+            margin-top: 1rem;
+        }
+        
+        .api-key-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+        
+        .api-key-input {
+            flex: 1;
+            padding: 0.5rem;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+        
+        .session-controls {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .session-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .session-id {
+            font-family: monospace;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+        
+        .responsive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .tabs-nav {
+                flex-direction: column;
+            }
+            
+            .control-buttons {
+                flex-direction: column;
+            }
+            
+            .api-config-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Header -->
+        <div class="header">
+            <h1><i class="fas fa-rocket"></i> ARQV30 Enhanced v3.0</h1>
+            <p>Análise Ultra-Detalhada de Mercado com IA Avançada</p>
+        </div>
+        
+        <!-- Tabs Navigation -->
+        <div class="tabs-container">
+            <div class="tabs-nav">
+                <button class="tab-button active" onclick="switchTab('analysis', this)">
+                    <i class="fas fa-chart-line"></i> Análise
+                </button>
+                <button class="tab-button" onclick="switchTab('progress', this)">
+                    <i class="fas fa-tasks"></i> Progresso
+                </button>
+                <button class="tab-button" onclick="switchTab('apis', this)">
+                    <i class="fas fa-cogs"></i> APIs
+                </button>
+                <button class="tab-button" onclick="switchTab('results', this)">
+                    <i class="fas fa-file-alt"></i> Resultados
+                </button>
+            </div>
+            
+            <!-- Analysis Tab -->
+            <div id="analysisTab" class="tab-content active">
+                <h3><i class="fas fa-search"></i> Configuração da Análise</h3>
+                
+                <!-- Session Controls -->
+                <div class="session-controls">
+                    <div class="session-info">
+                        <strong>Sessão Atual:</strong>
+                        <span id="currentSessionId" class="session-id">Nenhuma sessão ativa</span>
+                        <button class="btn btn-secondary" onclick="generateNewSession()">
+                            <i class="fas fa-plus"></i> Nova Sessão
+                        </button>
+                    </div>
+                    
+                    <div class="control-buttons">
+                        <button id="startBtn" class="btn btn-primary" onclick="startAnalysis()">
+                            <i class="fas fa-play"></i> Iniciar Análise
+                        </button>
+                        <button id="pauseBtn" class="btn btn-warning" onclick="pauseAnalysis()" disabled>
+                            <i class="fas fa-pause"></i> Pausar
+                        </button>
+                        <button id="saveBtn" class="btn btn-success" onclick="saveProgress()" disabled>
+                            <i class="fas fa-save"></i> Salvar Progresso
+                        </button>
+                        <button id="continueBtn" class="btn btn-primary" onclick="continueAnalysis()" disabled>
+                            <i class="fas fa-play"></i> Continuar
+                        </button>
+                        <button id="stopBtn" class="btn btn-danger" onclick="stopAnalysis()" disabled>
+                            <i class="fas fa-stop"></i> Parar
+                        </button>
+                    </div>
+                </div>
+                
+                <form id="analysisForm">
+                    <div class="responsive-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="segmento">
+                                <i class="fas fa-industry"></i> Segmento/Nicho
+                            </label>
+                            <input type="text" id="segmento" class="form-control" 
+                                   placeholder="Ex: Tecnologia, Saúde, Educação..." required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="produto">
+                                <i class="fas fa-box"></i> Produto/Serviço
+                            </label>
+                            <input type="text" id="produto" class="form-control" 
+                                   placeholder="Ex: Software SaaS, Curso Online..." required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="preco">
+                                <i class="fas fa-dollar-sign"></i> Faixa de Preço
+                            </label>
+                            <input type="text" id="preco" class="form-control" 
+                                   placeholder="Ex: R$ 100-500, R$ 1000+..." required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="publico">
+                                <i class="fas fa-users"></i> Público-Alvo
+                            </label>
+                            <input type="text" id="publico" class="form-control" 
+                                   placeholder="Ex: Empresários, Estudantes..." required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="contexto">
+                            <i class="fas fa-info-circle"></i> Contexto Adicional
+                        </label>
+                        <textarea id="contexto" class="form-control" rows="4" 
+                                  placeholder="Descreva detalhes específicos, objetivos, mercado geográfico, etc..."></textarea>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Progress Tab -->
+            <div id="progressTab" class="tab-content">
+                <h3><i class="fas fa-tasks"></i> Progresso da Análise</h3>
+                
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill"></div>
+                    </div>
+                    <div id="progressText" class="progress-text">Aguardando início...</div>
+                </div>
+                
+                <div class="status-container">
+                    <div class="status-item">
+                        <div id="step1Status" class="status-icon pending">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <strong>Etapa 1: Coleta Massiva de Dados</strong>
+                            <div id="step1Details" class="text-muted">Aguardando...</div>
+                        </div>
+                    </div>
+                    
+                    <div class="status-item">
+                        <div id="step2Status" class="status-icon pending">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <strong>Etapa 2: Síntese com IA</strong>
+                            <div id="step2Details" class="text-muted">Aguardando...</div>
+                        </div>
+                    </div>
+                    
+                    <div class="status-item">
+                        <div id="step3Status" class="status-icon pending">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <strong>Etapa 3: Geração de Módulos</strong>
+                            <div id="step3Details" class="text-muted">Aguardando...</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="currentActivity" class="results-container" style="display: none;">
+                    <h4>Atividade Atual</h4>
+                    <div id="activityLog"></div>
+                </div>
+            </div>
+            
+            <!-- APIs Tab -->
+            <div id="apisTab" class="tab-content">
+                <h3><i class="fas fa-cogs"></i> Configuração de APIs</h3>
+                <p class="text-muted mb-4">Configure as chaves de API para os diferentes serviços utilizados na análise.</p>
+                
+                <div class="api-config-grid">
+                    <!-- OpenRouter APIs -->
+                    <div class="api-service-card">
+                        <div class="api-service-title">
+                            <i class="fas fa-brain"></i>
+                            OpenRouter (IA)
+                            <div id="openrouterStatus" class="api-status inactive"></div>
+                        </div>
+                        <div class="api-keys-list">
+                            <div class="api-key-item">
+                                <input type="password" class="api-key-input" placeholder="OpenRouter API Key 1" 
+                                       data-service="openrouter" data-index="0">
+                                <button class="btn btn-secondary btn-sm" onclick="testApiKey(this)">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                            <div class="api-key-item">
+                                <input type="password" class="api-key-input" placeholder="OpenRouter API Key 2" 
+                                       data-service="openrouter" data-index="1">
+                                <button class="btn btn-secondary btn-sm" onclick="testApiKey(this)">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Gemini APIs -->
+                    <div class="api-service-card">
+                        <div class="api-service-title">
+                            <i class="fas fa-gem"></i>
+                            Google Gemini
+                            <div id="geminiStatus" class="api-status inactive"></div>
+                        </div>
+                        <div class="api-keys-list">
+                            <div class="api-key-item">
+                                <input type="password" class="api-key-input" placeholder="Gemini API Key 1" 
+                                       data-service="gemini" data-index="0">
+                                <button class="btn btn-secondary btn-sm" onclick="testApiKey(this)">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                            <div class="api-key-item">
+                                <input type="password" class="api-key-input" placeholder="Gemini API Key 2" 
+                                       data-service="gemini" data-index="1">
+                                <button class="btn btn-secondary btn-sm" onclick="testApiKey(this)">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Groq APIs -->
+                    <div class="api-service-card">
+                        <div class="api-service-title">
+                            <i class="fas fa-lightning-bolt"></i>
+                            Groq
+                            <div id="groqStatus" class="api-status inactive"></div>
+                        </div>
+                        <div class="api-keys-list">
+                            <div class="api-key-item">
+                                <input type="password" class="api-key-input" placeholder="Groq API Key 1" 
+                                       data-service="groq" data-index="0">
+                                <button class="btn btn-secondary btn-sm" onclick="testApiKey(this)">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Search APIs -->
+                    <div class="api-service-card">
+                        <div class="api-service-title">
+                            <i class="fas fa-search"></i>
+                            Serper (Busca)
+                            <div id="serperStatus" class="api-status inactive"></div>
+                        </div>
+                        <div class="api-keys-list">
+                            <div class="api-key-item">
+                                <input type="password" class="api-key-input" placeholder="Serper API Key 1" 
+                                       data-service="serper" data-index="0">
+                                <button class="btn btn-secondary btn-sm" onclick="testApiKey(this)">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                            <div class="api-key-item">
+                                <input type="password" class="api-key-input" placeholder="Serper API Key 2" 
+                                       data-service="serper" data-index="1">
+                                <button class="btn btn-secondary btn-sm" onclick="testApiKey(this)">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Exa APIs -->
+                    <div class="api-service-card">
+                        <div class="api-service-title">
+                            <i class="fas fa-globe"></i>
+                            Exa (Web Search)
+                            <div id="exaStatus" class="api-status inactive"></div>
+                        </div>
+                        <div class="api-keys-list">
+                            <div class="api-key-item">
+                                <input type="password" class="api-key-input" placeholder="Exa API Key 1" 
+                                       data-service="exa" data-index="0">
+                                <button class="btn btn-secondary btn-sm" onclick="testApiKey(this)">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Jina APIs -->
+                    <div class="api-service-card">
+                        <div class="api-service-title">
+                            <i class="fas fa-file-text"></i>
+                            Jina (Content)
+                            <div id="jinaStatus" class="api-status inactive"></div>
+                        </div>
+                        <div class="api-keys-list">
+                            <div class="api-key-item">
+                                <input type="password" class="api-key-input" placeholder="Jina API Key 1" 
+                                       data-service="jina" data-index="0">
+                                <button class="btn btn-secondary btn-sm" onclick="testApiKey(this)">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Firecrawl APIs -->
+                    <div class="api-service-card">
+                        <div class="api-service-title">
+                            <i class="fas fa-fire"></i>
+                            Firecrawl
+                            <div id="firecrawlStatus" class="api-status inactive"></div>
+                        </div>
+                        <div class="api-keys-list">
+                            <div class="api-key-item">
+                                <input type="password" class="api-key-input" placeholder="Firecrawl API Key 1" 
+                                       data-service="firecrawl" data-index="0">
+                                <button class="btn btn-secondary btn-sm" onclick="testApiKey(this)">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Apify APIs -->
+                    <div class="api-service-card">
+                        <div class="api-service-title">
+                            <i class="fas fa-spider"></i>
+                            Apify (Scraping)
+                            <div id="apifyStatus" class="api-status inactive"></div>
+                        </div>
+                        <div class="api-keys-list">
+                            <div class="api-key-item">
+                                <input type="password" class="api-key-input" placeholder="Apify API Key 1" 
+                                       data-service="apify" data-index="0">
+                                <button class="btn btn-secondary btn-sm" onclick="testApiKey(this)">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="control-buttons mt-4">
+                    <button class="btn btn-primary" onclick="saveApiConfigs()">
+                        <i class="fas fa-save"></i> Salvar Configurações
+                    </button>
+                    <button class="btn btn-secondary" onclick="loadApiConfigs()">
+                        <i class="fas fa-download"></i> Carregar Configurações
+                    </button>
+                    <button class="btn btn-warning" onclick="testAllApis()">
+                        <i class="fas fa-check-circle"></i> Testar Todas as APIs
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Results Tab -->
+            <div id="resultsTab" class="tab-content">
+                <h3><i class="fas fa-file-alt"></i> Resultados da Análise</h3>
+                
+                <div id="resultsContainer" class="results-container">
+                    <p class="text-muted">Os resultados aparecerão aqui após a conclusão da análise.</p>
+                </div>
+                
+                <div id="downloadSection" style="display: none;">
+                    <h4>Downloads Disponíveis</h4>
+                    <div class="control-buttons">
+                        <button class="btn btn-success" onclick="downloadReport('pdf')">
+                            <i class="fas fa-file-pdf"></i> Download PDF
+                        </button>
+                        <button class="btn btn-primary" onclick="downloadReport('html')">
+                            <i class="fas fa-file-code"></i> Download HTML
+                        </button>
+                        <button class="btn btn-secondary" onclick="downloadReport('json')">
+                            <i class="fas fa-file-code"></i> Download JSON
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        console.log('🚀 ARQV30 Enhanced v3.0 Interface Carregada');
+        
+        // Estado global da aplicação
+        let currentSession = null;
+        let analysisState = 'idle'; // idle, running, paused, completed, error
+        let progressInterval = null;
+        let currentStep = 0;
+        let savedProgress = null;
+        
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeInterface();
+            loadApiConfigs();
+            checkApiStatus();
+        });
+        
+        // Função para trocar abas (corrigida)
+        function switchTab(tabName, clickedButton) {
+            try {
+                // Remove active de todos os botões
+                document.querySelectorAll('.tab-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Remove active de todos os conteúdos
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // Ativa o botão clicado
+                if (clickedButton) {
+                    clickedButton.classList.add('active');
+                }
+                
+                // Ativa o conteúdo correspondente
+                const tabContent = document.getElementById(`${tabName}Tab`);
+                if (tabContent) {
+                    tabContent.classList.add('active');
+                }
+            } catch (error) {
+                console.error('Erro ao trocar aba:', error);
+            }
+        }
+        
+        // Inicialização da interface
+        function initializeInterface() {
+            generateNewSession();
+            updateControlButtons();
+            loadSavedProgress();
+        }
+        
+        // Gerar nova sessão
+        function generateNewSession() {
+            const timestamp = Date.now();
+            const randomId = Math.random().toString(36).substr(2, 8);
+            currentSession = `session_${timestamp}_${randomId}`;
+            document.getElementById('currentSessionId').textContent = currentSession;
+            console.log('Nova sessão gerada:', currentSession);
+        }
+        
+        // Controle de botões baseado no estado
+        function updateControlButtons() {
+            const startBtn = document.getElementById('startBtn');
+            const pauseBtn = document.getElementById('pauseBtn');
+            const saveBtn = document.getElementById('saveBtn');
+            const continueBtn = document.getElementById('continueBtn');
+            const stopBtn = document.getElementById('stopBtn');
+            
+            switch (analysisState) {
+                case 'idle':
+                    startBtn.disabled = false;
+                    pauseBtn.disabled = true;
+                    saveBtn.disabled = true;
+                    continueBtn.disabled = savedProgress ? false : true;
+                    stopBtn.disabled = true;
+                    break;
+                case 'running':
+                    startBtn.disabled = true;
+                    pauseBtn.disabled = false;
+                    saveBtn.disabled = false;
+                    continueBtn.disabled = true;
+                    stopBtn.disabled = false;
+                    break;
+                case 'paused':
+                    startBtn.disabled = true;
+                    pauseBtn.disabled = true;
+                    saveBtn.disabled = false;
+                    continueBtn.disabled = false;
+                    stopBtn.disabled = false;
+                    break;
+                case 'completed':
+                    startBtn.disabled = false;
+                    pauseBtn.disabled = true;
+                    saveBtn.disabled = true;
+                    continueBtn.disabled = true;
+                    stopBtn.disabled = true;
+                    break;
+                case 'error':
+                    startBtn.disabled = false;
+                    pauseBtn.disabled = true;
+                    saveBtn.disabled = true;
+                    continueBtn.disabled = savedProgress ? false : true;
+                    stopBtn.disabled = true;
+                    break;
+            }
+        }
+        
+        // Iniciar análise
+        async function startAnalysis() {
+            try {
+                const formData = getFormData();
+                if (!validateFormData(formData)) {
+                    alert('Por favor, preencha todos os campos obrigatórios.');
+                    return;
+                }
+                
+                analysisState = 'running';
+                currentStep = 1;
+                updateControlButtons();
+                updateProgress(0, 'Iniciando análise...');
+                
+                // Inicia o monitoramento de progresso
+                startProgressMonitoring();
+                
+                // Chama a API para iniciar a análise
+                const response = await fetch('/api/workflow/start', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        session_id: currentSession,
+                        ...formData
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Erro na API: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                console.log('Análise iniciada:', result);
+                
+            } catch (error) {
+                console.error('Erro ao iniciar análise:', error);
+                analysisState = 'error';
+                updateControlButtons();
+                updateProgress(0, 'Erro ao iniciar análise');
+                alert('Erro ao iniciar análise: ' + error.message);
+            }
+        }
+        
+        // Pausar análise
+        async function pauseAnalysis() {
+            try {
+                analysisState = 'paused';
+                updateControlButtons();
+                stopProgressMonitoring();
+                
+                const response = await fetch('/api/workflow/pause', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        session_id: currentSession
+                    })
+                });
+                
+                if (response.ok) {
+                    updateProgress(null, 'Análise pausada');
+                    console.log('Análise pausada');
+                } else {
+                    throw new Error('Erro ao pausar análise');
+                }
+                
+            } catch (error) {
+                console.error('Erro ao pausar análise:', error);
+                alert('Erro ao pausar análise: ' + error.message);
+            }
+        }
+        
+        // Salvar progresso
+        async function saveProgress() {
+            try {
+                const response = await fetch('/api/workflow/save', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        session_id: currentSession,
+                        current_step: currentStep,
+                        form_data: getFormData()
+                    })
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    savedProgress = result;
+                    localStorage.setItem('savedProgress', JSON.stringify(savedProgress));
+                    updateControlButtons();
+                    alert('Progresso salvo com sucesso!');
+                    console.log('Progresso salvo:', result);
+                } else {
+                    throw new Error('Erro ao salvar progresso');
+                }
+                
+            } catch (error) {
+                console.error('Erro ao salvar progresso:', error);
+                alert('Erro ao salvar progresso: ' + error.message);
+            }
+        }
+        
+        // Continuar análise
+        async function continueAnalysis() {
+            try {
+                if (!savedProgress) {
+                    alert('Nenhum progresso salvo encontrado.');
+                    return;
+                }
+                
+                analysisState = 'running';
+                updateControlButtons();
+                startProgressMonitoring();
+                
+                const response = await fetch('/api/workflow/continue', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        session_id: currentSession,
+                        saved_progress: savedProgress
+                    })
+                });
+                
+                if (response.ok) {
+                    updateProgress(null, 'Continuando análise...');
+                    console.log('Análise continuada');
+                } else {
+                    throw new Error('Erro ao continuar análise');
+                }
+                
+            } catch (error) {
+                console.error('Erro ao continuar análise:', error);
+                analysisState = 'error';
+                updateControlButtons();
+                alert('Erro ao continuar análise: ' + error.message);
+            }
+        }
+        
+        // Parar análise
+        async function stopAnalysis() {
+            try {
+                const response = await fetch('/api/workflow/stop', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        session_id: currentSession
+                    })
+                });
+                
+                analysisState = 'idle';
+                currentStep = 0;
+                updateControlButtons();
+                stopProgressMonitoring();
+                updateProgress(0, 'Análise interrompida');
+                resetStepStatus();
+                
+                console.log('Análise interrompida');
+                
+            } catch (error) {
+                console.error('Erro ao parar análise:', error);
+                alert('Erro ao parar análise: ' + error.message);
+            }
+        }
+        
+        // Monitoramento de progresso
+        function startProgressMonitoring() {
+            if (progressInterval) {
+                clearInterval(progressInterval);
+            }
+            
+            progressInterval = setInterval(async () => {
+                try {
+                    const response = await fetch(`/api/workflow/status/${currentSession}`);
+                    if (response.ok) {
+                        const status = await response.json();
+                        updateProgressFromStatus(status);
+                    }
+                } catch (error) {
+                    console.error('Erro ao verificar status:', error);
+                }
+            }, 2000);
+        }
+        
+        function stopProgressMonitoring() {
+            if (progressInterval) {
+                clearInterval(progressInterval);
+                progressInterval = null;
+            }
+        }
+        
+        // Atualizar progresso baseado no status da API
+        function updateProgressFromStatus(status) {
+            if (!status) return;
+            
+            let progress = 0;
+            let message = 'Processando...';
+            
+            // Calcula progresso baseado nas etapas
+            if (status.step1_completed) progress += 33;
+            if (status.step2_completed) progress += 33;
+            if (status.step3_completed) progress += 34;
+            
+            // Atualiza status das etapas
+            updateStepStatus(1, status.step1_status, status.step1_details);
+            updateStepStatus(2, status.step2_status, status.step2_details);
+            updateStepStatus(3, status.step3_status, status.step3_details);
+            
+            // Verifica se completou
+            if (progress >= 100) {
+                analysisState = 'completed';
+                updateControlButtons();
+                stopProgressMonitoring();
+                message = 'Análise concluída!';
+                showResults(status.results);
+            } else if (status.error) {
+                analysisState = 'error';
+                updateControlButtons();
+                stopProgressMonitoring();
+                message = 'Erro na análise: ' + status.error;
+            }
+            
+            updateProgress(progress, message);
+            
+            // Atualiza log de atividade
+            if (status.current_activity) {
+                updateActivityLog(status.current_activity);
+            }
+        }
+        
+        // Atualizar barra de progresso
+        function updateProgress(percentage, message) {
+            if (percentage !== null) {
+                document.getElementById('progressFill').style.width = percentage + '%';
+            }
+            if (message) {
+                document.getElementById('progressText').textContent = message;
+            }
+        }
+        
+        // Atualizar status das etapas
+        function updateStepStatus(step, status, details) {
+            const statusIcon = document.getElementById(`step${step}Status`);
+            const statusDetails = document.getElementById(`step${step}Details`);
+            
+            if (!statusIcon || !statusDetails) return;
+            
+            // Remove classes anteriores
+            statusIcon.className = 'status-icon';
+            
+            switch (status) {
+                case 'pending':
+                    statusIcon.classList.add('pending');
+                    statusIcon.innerHTML = '<i class="fas fa-clock"></i>';
+                    break;
+                case 'running':
+                    statusIcon.classList.add('running');
+                    statusIcon.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                    break;
+                case 'completed':
+                    statusIcon.classList.add('completed');
+                    statusIcon.innerHTML = '<i class="fas fa-check"></i>';
+                    break;
+                case 'error':
+                    statusIcon.classList.add('error');
+                    statusIcon.innerHTML = '<i class="fas fa-times"></i>';
+                    break;
+            }
+            
+            statusDetails.textContent = details || 'Aguardando...';
+        }
+        
+        // Reset status das etapas
+        function resetStepStatus() {
+            for (let i = 1; i <= 3; i++) {
+                updateStepStatus(i, 'pending', 'Aguardando...');
+            }
+        }
+        
+        // Atualizar log de atividade
+        function updateActivityLog(activity) {
+            const activityContainer = document.getElementById('currentActivity');
+            const activityLog = document.getElementById('activityLog');
+            
+            if (activity && activity.length > 0) {
+                activityContainer.style.display = 'block';
+                activityLog.innerHTML = activity.map(item => 
+                    `<div class="activity-item">
+                        <small class="text-muted">${new Date(item.timestamp).toLocaleTimeString()}</small>
+                        <div>${item.message}</div>
+                    </div>`
+                ).join('');
+            } else {
+                activityContainer.style.display = 'none';
+            }
+        }
+        
+        // Obter dados do formulário
+        function getFormData() {
+            return {
+                segmento: document.getElementById('segmento').value,
+                produto: document.getElementById('produto').value,
+                preco: document.getElementById('preco').value,
+                publico: document.getElementById('publico').value,
+                contexto: document.getElementById('contexto').value
+            };
+        }
+        
+        // Validar dados do formulário
+        function validateFormData(data) {
+            return data.segmento && data.produto && data.preco && data.publico;
+        }
+        
+        // Carregar progresso salvo
+        function loadSavedProgress() {
+            const saved = localStorage.getItem('savedProgress');
+            if (saved) {
+                try {
+                    savedProgress = JSON.parse(saved);
+                    updateControlButtons();
+                } catch (error) {
+                    console.error('Erro ao carregar progresso salvo:', error);
+                }
+            }
+        }
+        
+        // Mostrar resultados
+        function showResults(results) {
+            const resultsContainer = document.getElementById('resultsContainer');
+            const downloadSection = document.getElementById('downloadSection');
+            
+            if (results) {
+                resultsContainer.innerHTML = `
+                    <h4>Análise Concluída</h4>
+                    <p>A análise foi concluída com sucesso. Você pode visualizar e baixar os resultados.</p>
+                    <div class="results-summary">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="metric-card">
+                                    <h5>Fontes Analisadas</h5>
+                                    <div class="metric-value">${results.sources_analyzed || 0}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="metric-card">
+                                    <h5>Insights Gerados</h5>
+                                    <div class="metric-value">${results.insights_generated || 0}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="metric-card">
+                                    <h5>Tempo de Análise</h5>
+                                    <div class="metric-value">${results.analysis_time || 'N/A'}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                downloadSection.style.display = 'block';
+            }
+        }
+        
+        // Download de relatórios
+        async function downloadReport(format) {
+            try {
+                const response = await fetch(`/api/workflow/download/${currentSession}/${format}`);
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `analise_${currentSession}.${format}`;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                } else {
+                    throw new Error('Erro ao baixar relatório');
+                }
+            } catch (error) {
+                console.error('Erro ao baixar relatório:', error);
+                alert('Erro ao baixar relatório: ' + error.message);
+            }
+        }
+        
+        // === FUNÇÕES DE API ===
+        
+        // Verificar status das APIs
+        async function checkApiStatus() {
+            try {
+                const response = await fetch('/api/apis/status');
+                if (response.ok) {
+                    const status = await response.json();
+                    updateApiStatus(status);
+                }
+            } catch (error) {
+                console.error('Erro ao verificar status das APIs:', error);
+            }
+        }
+        
+        // Atualizar status visual das APIs
+        function updateApiStatus(status) {
+            Object.keys(status).forEach(service => {
+                const statusElement = document.getElementById(`${service}Status`);
+                if (statusElement) {
+                    statusElement.className = `api-status ${status[service] ? 'active' : 'inactive'}`;
+                }
+            });
+        }
+        
+        // Testar chave de API individual
+        async function testApiKey(button) {
+            const input = button.parentElement.querySelector('.api-key-input');
+            const service = input.dataset.service;
+            const index = input.dataset.index;
+            const apiKey = input.value;
+            
+            if (!apiKey) {
+                alert('Por favor, insira uma chave de API.');
+                return;
+            }
+            
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            
+            try {
+                const response = await fetch('/api/apis/test', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        service: service,
+                        index: parseInt(index),
+                        api_key: apiKey
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    button.innerHTML = '<i class="fas fa-check"></i>';
+                    button.className = 'btn btn-success btn-sm';
+                    input.style.borderColor = 'var(--success-color)';
+                } else {
+                    button.innerHTML = '<i class="fas fa-times"></i>';
+                    button.className = 'btn btn-danger btn-sm';
+                    input.style.borderColor = 'var(--error-color)';
+                    alert('Erro ao testar API: ' + result.error);
+                }
+                
+            } catch (error) {
+                console.error('Erro ao testar API:', error);
+                button.innerHTML = '<i class="fas fa-times"></i>';
+                button.className = 'btn btn-danger btn-sm';
+                alert('Erro ao testar API: ' + error.message);
+            } finally {
+                button.disabled = false;
+                setTimeout(() => {
+                    button.innerHTML = '<i class="fas fa-check"></i>';
+                    button.className = 'btn btn-secondary btn-sm';
+                    input.style.borderColor = '';
+                }, 3000);
+            }
+        }
+        
+        // Salvar configurações de API
+        async function saveApiConfigs() {
+            const configs = {};
+            
+            document.querySelectorAll('.api-key-input').forEach(input => {
+                const service = input.dataset.service;
+                const index = input.dataset.index;
+                const value = input.value;
+                
+                if (value) {
+                    if (!configs[service]) {
+                        configs[service] = {};
+                    }
+                    configs[service][index] = value;
+                }
+            });
+            
+            try {
+                const response = await fetch('/api/apis/save', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(configs)
+                });
+                
+                if (response.ok) {
+                    alert('Configurações salvas com sucesso!');
+                    localStorage.setItem('apiConfigs', JSON.stringify(configs));
+                    checkApiStatus();
+                } else {
+                    throw new Error('Erro ao salvar configurações');
+                }
+                
+            } catch (error) {
+                console.error('Erro ao salvar configurações:', error);
+                alert('Erro ao salvar configurações: ' + error.message);
+            }
+        }
+        
+        // Carregar configurações de API
+        function loadApiConfigs() {
+            const saved = localStorage.getItem('apiConfigs');
+            if (saved) {
+                try {
+                    const configs = JSON.parse(saved);
+                    
+                    Object.keys(configs).forEach(service => {
+                        Object.keys(configs[service]).forEach(index => {
+                            const input = document.querySelector(
+                                `.api-key-input[data-service="${service}"][data-index="${index}"]`
+                            );
+                            if (input) {
+                                input.value = configs[service][index];
+                            }
+                        });
+                    });
+                    
+                } catch (error) {
+                    console.error('Erro ao carregar configurações:', error);
+                }
+            }
+        }
+        
+        // Testar todas as APIs
+        async function testAllApis() {
+            const buttons = document.querySelectorAll('.api-service-card button');
+            for (const button of buttons) {
+                if (button.onclick && button.onclick.toString().includes('testApiKey')) {
+                    await testApiKey(button);
+                    await new Promise(resolve => setTimeout(resolve, 1000)); // Delay entre testes
+                }
+            }
+        }
+        
+        // Atualização automática do status das APIs
+        setInterval(checkApiStatus, 30000); // Verifica a cada 30 segundos
+        
+    </script>
+</body>
+</html>
